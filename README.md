@@ -3,7 +3,7 @@ Demo for using [RecylcerView][1] instead of ListView.
 
 ##Prerequisites
  - [android-support-v4.jar](#)
- - [lib-recyclerview.jar](3)
+ - [lib-recyclerview.jar][3]
 
 
 ## Usage
