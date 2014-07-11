@@ -28,6 +28,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vee.android.sample.recyclerview.ListAdapterHolder.OnItemClickListener;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -42,13 +44,13 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.mActivity = (FragmentActivity) activity;
+        mActivity = (FragmentActivity) activity;
         setRetainInstance(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater , ViewGroup container , Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         adapter = new ListAdapterHolder(mActivity);
         return rootView;
@@ -61,6 +63,13 @@ public class PlaceholderFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter.SetOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View v , int position) {
+                // do something with position
+            }
+        });
     }
 
 }

@@ -31,7 +31,8 @@ import java.util.Random;
 public class ListAdapterHolder extends RecyclerView.Adapter<ListAdapterHolder.ViewHolder> {
 
     private final FragmentActivity mActivity;
-    private List<UserDetails> mUserDetails = new ArrayList<UserDetails>();
+    private final List<UserDetails> mUserDetails = new ArrayList<UserDetails>();
+    OnItemClickListener mItemClickListener;
 
     public ListAdapterHolder(FragmentActivity mActivity) {
         this.mActivity = mActivity;
@@ -58,7 +59,7 @@ public class ListAdapterHolder extends RecyclerView.Adapter<ListAdapterHolder.Vi
         return mUserDetails.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView vName, vSex, vId, vAge;
 
@@ -68,8 +69,24 @@ public class ListAdapterHolder extends RecyclerView.Adapter<ListAdapterHolder.Vi
             vName = (TextView) view.findViewById(R.id.list_name);
             vSex = (TextView) view.findViewById(R.id.list_sex);
             vAge = (TextView) view.findViewById(R.id.list_age);
+            view.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null) {
+                mItemClickListener.onItemClick(v, getPosition());
+            }
+        }
+
+    }
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view , int position);
+    }
+
+    public void SetOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
     }
 
     /* ==========This Part is not necessary========= */
@@ -79,7 +96,7 @@ public class ListAdapterHolder extends RecyclerView.Adapter<ListAdapterHolder.Vi
      */
     private void createUserDetails() {
         for (int i = 0; i < 100; i++) {
-            UserDetails mDetails = new UserDetails();
+            final UserDetails mDetails = new UserDetails();
             mDetails.setId(i);
             mDetails.setName("Name " + i);
             mDetails.setSex((i % 2) == 0 ? "M" : "F");
@@ -92,7 +109,7 @@ public class ListAdapterHolder extends RecyclerView.Adapter<ListAdapterHolder.Vi
      * Snippet from http://stackoverflow.com/a/363692/1008278
      */
     public static int randInt(int min , int max) {
-        Random rand = new Random();
+        final Random rand = new Random();
         return rand.nextInt((max - min) + 1) + min;
     }
 
