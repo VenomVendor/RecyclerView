@@ -1,0 +1,9 @@
+# Custom
+*.class
+.bin
+.gen
+.ssh/*
+*/bin/*
+!*/bin/*.jar
+gen/
+proguard/
