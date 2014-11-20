@@ -78,8 +78,8 @@ public class ListAdapterHolder extends RecyclerView.Adapter<ListAdapterHolder.Vi
      * Create Random Users
      */
     private void createUserDetails() {
+        UserDetails mDetails = new UserDetails();
         for (int i = 0; i < 100; i++) {
-            UserDetails mDetails = new UserDetails();
             mDetails.setId(i);
             mDetails.setName("Name " + i);
             mDetails.setSex((i % 2) == 0 ? "M" : "F");
